@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Scout2 : AWS auditing tool" />
+    <meta name="description" content="Scout2 : Security auditing tool for AWS environments" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -19,7 +19,7 @@
           <a id="forkme_banner" href="https://github.com/iSECPartners/Scout2">View on GitHub</a>
 
           <h1 id="project_title">Scout2</h1>
-          <h2 id="project_tagline">AWS auditing tool</h2>
+          <h2 id="project_tagline">Security auditing tool for AWS environments</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/iSECPartners/Scout2/zipball/master">Download this project as a .zip file</a>
@@ -31,112 +31,48 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <h2>
+<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Using the AWS API, the Scout2 Python scripts fetches EC2, IAM, and S3, configuration data. The gathered configuration is analyzed and stored as JSON objects in several JavaScript files. These files are imported in the Scout2 HTML report, which allows for a quick and efficient review of the AWS configuration.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<h2>
+<a name="html-report" class="anchor" href="#html-report"><span class="octicon octicon-link"></span></a>HTML Report</h2>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>The Scout2 Python script populates JavaScript variables displayed in the HTML report. In addition to displaying the AWS configuration, the AWS Scout2 HTML report highlights high-risk areas automatically.</p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="ec2-view" class="anchor" href="#ec2-view"><span class="octicon octicon-link"></span></a>EC2 view</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>Security Groups are the first layer of defense for EC2 instances ([doc]<a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Security.html#VPC_Security_Comparison)">http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Security.html#VPC_Security_Comparison)</a>), and control both inbound and outbound traffic at the instance level. AWS Scout2 has a default ruleset that reports known sensitive ports that are open to the Internet (in the following screenshot, 22/SSH). Additionally, the default ruleset also reports open ports whose number are associated with plaintext protocol (in the following screenshot, 23/Telnet).</p>
+
+<p><img src="http://isecpartners.github.io/Scout2/images/aws-screenshot-ec2-sg.png" alt="EC2 Security Groups"></p>
+
+<p>Network ACLs are the second layer of defense, and control traffic in and out of a subnet. AWS Scout2 has an EC2/Network ACLs view that reports all existing rules:</p>
+
+<p><img src="http://isecpartners.github.io/Scout2/images/aws-screenshot-ec2-acls.png" alt="Apps"></p>
 
 <h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a name="iam-view" class="anchor" href="#iam-view"><span class="octicon octicon-link"></span></a>IAM view</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>The IAM tab in the HTML report allows to review IAM users, groups and roles. In the following screenshot, AWS Scout2 reports two dangerous findings (lack of Multi-Factor Authentication, lack of access-key rotation), and warns about a third one (support for two types of authentication).</p>
+
+<p><img src="http://isecpartners.github.io/Scout2/images/aws-screenshot-iam-user.png" alt="Apps"></p>
+
+<h3>
+<a name="s3-view" class="anchor" href="#s3-view"><span class="octicon octicon-link"></span></a>S3 view</h3>
+
+<p>AWS Scout2 fetches the S3 configuration as well. The default ruleset highlights buckets that are world-writable, and whose permissions are world-writable. Additionally, a warning is displayed for world-readable buckets.</p>
+
+<p><img src="http://isecpartners.github.io/Scout2/images/aws-screenshot-s3-worldwrite.png" alt="Apps"></p>
 
 <h3>
 <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-
-<h1>
-<a name="aws-scout2" class="anchor" href="#aws-scout2"><span class="octicon octicon-link"></span></a>AWS Scout2</h1>
-
-<h2>
-<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
-
-<p>Scout2 is a security tool that lets AWS administrators asses their environment's
-security posture. Using the AWS API, Scout2 gathers configuration data for
-manual inspection and highlights high-risk areas automatically. Rather than
-pouring through dozens of pages on the web, Scout2 supplies a clear view of the
-attack surface automatically.</p>
-
-<p><strong>Note:</strong> Scout2 is still under development. It is currently usable, but a
-number of features may change. As such, please bear with us as we find time to
-work on the tool. Feel free to report a bug with details, request a new feature,
-or send a pull request.</p>
-
-<h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
-
-<p>To install Scout2, simply clone this repository.</p>
-
-<p>The following is a list of required python modules that may not be installed on
-your system:</p>
-
 <ul>
-<li>Boto, Amazon's AWS SDK for Python (<a href="https://aws.amazon.com/sdkforpython">https://aws.amazon.com/sdkforpython</a>)</li>
-<li>Dateutil (<a href="https://pypi.python.org/pypi/python-dateutil">https://pypi.python.org/pypi/python-dateutil</a>)</li>
-</ul><h2>
-<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
-
-<p>To run Scout2, you will need valid AWS credentials (Access Key). The role, or
-user account, associated with this Access Key needs to have read access on all
-resources within:</p>
-
-<ul>
-<li>Identity and Access Management (IAM)</li>
-<li>Elastic Compute Cloud (EC2)</li>
-<li>Simple Storage Service (S3)</li>
-</ul><h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
-
-<p>To run Scout2 using an access key downloaded from AWS, run the following command:</p>
-
-<pre><code>$ python Scout2.py --credentials &lt;CREDENTIALS.CSV&gt;
-</code></pre>
-
-<p>To run Scout2 from an EC2 instance within an appropriate IAM Role, run the following command:</p>
-
-<pre><code>$ python Scout2.py --role-credentials
-</code></pre>
-
-<p>To run Scout2 when MFA-Protected API Access is configured, run the following command:</p>
-
-<pre><code>$ python Scout2.py --credentials &lt;CREDENTIALS.CSV&gt; --mfa_serial &lt;ARN_MFA_SERIAL_NUMBER&gt; --mfa_code &lt;MFA CODE&gt;
-</code></pre>
-
-<p>Scout2 will generate a number of JavaScript files that contain AWS configuration
-data stored as JSON payloads. Scout2 will also generate additional JavaScript
-files that contain potential security flaws and best practices violations. To
-review the configuration, simply open the report.html file in your browser.</p>
-
-<h2>
-<a name="advanced-documentation" class="anchor" href="#advanced-documentation"><span class="octicon octicon-link"></span></a>Advanced documentation</h2>
-
-<p>The following command will provide the list of available command line options:</p>
-
-<pre><code>$ python Scout2.py --help
-</code></pre>
-
-<h2>
-<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
-
-<p>GPLv2: See LICENSE.</p>
+<li>Loic Simon - <a href="https://github.com/l01cd3v" class="user-mention">@l01cd3v</a>
+</li>
+</ul>
       </section>
     </div>
 
