@@ -39,9 +39,12 @@
 <h2>
 <a name="html-report" class="anchor" href="#html-report"><span class="octicon octicon-link"></span></a>HTML Report</h2>
 
-<p>The Scout2 Python script populates JavaScript variables displayed in the HTML report. In addition to displaying the AWS configuration, the AWS Scout2 HTML report highlights high-risk areas automatically.</p>
+<p>The Scout2 Python script populates JavaScript variables displayed in the HTML report. In addition to displaying the AWS configuration, the AWS Scout2 HTML report highlights high-risk areas automatically. Potential findings are highlight with two different colors</p>
 
-<h3>
+<ul>
+<li>red :: danger</li>
+<li>orange :: warning</li>
+</ul><h3>
 <a name="ec2-view" class="anchor" href="#ec2-view"><span class="octicon octicon-link"></span></a>EC2 view</h3>
 
 <p>Security Groups are the first layer of defense for EC2 instances (<a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Security.html#VPC_Security_Comparison">AWS documentation</a>), and control both inbound and outbound traffic at the instance level. AWS Scout2 has a default ruleset that reports known sensitive ports that are open to the Internet (in the following screenshot, 22/SSH). Additionally, the default ruleset also reports open ports whose number are associated with plaintext protocol (in the following screenshot, 23/Telnet).</p>
@@ -50,7 +53,7 @@
 
 <p>Network ACLs are the second layer of defense, and control traffic in and out of a subnet. AWS Scout2 has an EC2/Network ACLs view that reports all existing rules:</p>
 
-<p><img src="http://isecpartners.github.io/Scout2/images/aws-screenshot-ec2-acls.png" alt="Apps"></p>
+<p><img src="http://isecpartners.github.io/Scout2/images/aws-screenshot-ec2-acls.png" alt="Network ACLs view"></p>
 
 <h3>
 <a name="iam-view" class="anchor" href="#iam-view"><span class="octicon octicon-link"></span></a>IAM view</h3>
@@ -66,8 +69,38 @@
 
 <p><img src="http://isecpartners.github.io/Scout2/images/aws-screenshot-s3-worldwrite.png" alt="Apps"></p>
 
+<h2>
+<a name="default-rulesets" class="anchor" href="#default-rulesets"><span class="octicon octicon-link"></span></a>Default rulesets</h2>
+
+<p>AWS Scout2 comes with the following, default, rulset:</p>
+
 <h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a name="ec2-default-ruleset" class="anchor" href="#ec2-default-ruleset"><span class="octicon octicon-link"></span></a>EC2 default ruleset</h3>
+
+<table width="100%">
+<tr>
+<td width="75%">Sensitive port open to the Internet (e.g. SSH, RDP, SQL, ...)</td>
+  <td width="25%">danger</td>
+ </tr>
+<tr>
+<td width="75%">Plaintext-protocol port open (e.g. FTP, Telnet, ...)</td>
+  <td width="25%">danger</td>
+ </tr>
+<tr>
+<td width="75%">Non-HTTP ports open to the Internet (not 80/443)</td>
+  <td width="25%">danger</td>
+ </tr>
+</table><h3>
+<a name="iam-default-ruleset" class="anchor" href="#iam-default-ruleset"><span class="octicon octicon-link"></span></a>IAM default ruleset</h3>
+
+<h3>
+<a name="s3-default-ruleset" class="anchor" href="#s3-default-ruleset"><span class="octicon octicon-link"></span></a>S3 default ruleset</h3>
+
+<h2>
+<a name="how-to-create-a-new-rule" class="anchor" href="#how-to-create-a-new-rule"><span class="octicon octicon-link"></span></a>How to create a new rule</h2>
+
+<h2>
+<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h2>
 
 <ul>
 <li>Loic Simon - <a href="https://github.com/l01cd3v" class="user-mention">@l01cd3v</a>
