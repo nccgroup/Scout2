@@ -77,19 +77,33 @@
 <h3>
 <a name="ec2-default-ruleset" class="anchor" href="#ec2-default-ruleset"><span class="octicon octicon-link"></span></a>EC2 default ruleset</h3>
 
-<table width="100%">
+<table>
+<thead><tr>
+<th>Description</th>
+<th>Level</th>
+</tr></thead>
+<tbody>
 <tr>
-<td width="75%">Sensitive port open to the Internet (e.g. SSH, RDP, SQL, ...)</td>
-  <td width="25%">danger</td>
- </tr>
+<td>Sensitive port open to the Internet (e.g. SSH, RDP, SQL, ...)</td>
+<td>danger</td>
+</tr>
 <tr>
-<td width="75%">Plaintext-protocol port open (e.g. FTP, Telnet, ...)</td>
-  <td width="25%">danger</td>
- </tr>
+<td>Plaintext-protocol port open (e.g. FTP, Telnet, ...)</td>
+<td>danger</td>
+</tr>
 <tr>
-<td width="75%">Non-HTTP ports open to the Internet (not 80/443)</td>
-  <td width="25%">danger</td>
- </tr>
+<td>Non-HTTP ports open to the Internet (not 80/443)</td>
+<td>warning</td>
+</tr>
+<tr>
+<td>Lack of network ACLs (Inbound)</td>
+<td>warning</td>
+</tr>
+<tr>
+<td>Lack of network ACLs (Outbound)</td>
+<td>warning</td>
+</tr>
+</tbody>
 </table><h3>
 <a name="iam-default-ruleset" class="anchor" href="#iam-default-ruleset"><span class="octicon octicon-link"></span></a>IAM default ruleset</h3>
 
@@ -98,6 +112,32 @@
 
 <h2>
 <a name="how-to-create-a-new-rule" class="anchor" href="#how-to-create-a-new-rule"><span class="octicon octicon-link"></span></a>How to create a new rule</h2>
+
+<ol>
+<li>Open the default ruleset (under rules/findings-[XXX].default.rules) you wish to enhance, and create a new entry as follow:</li>
+</ol><pre><code>+    },
++    "user-policy": {
++        "description": "User policies",
++        "entity": "users",
++        "callback": "hasUserPolicy",
++        "callback_args": "",
++        "level": "warning"
++    }
+</code></pre>
+
+<ol>
+<li>Define and implement the new callback in the corresponding utils file:</li>
+</ol><pre><code>+
++    def hasUserPolicy(self, key, obj):
++        if len(obj['policies']) &gt; 0:
++            self.addItem(obj['user_name'], obj['user_name'])
+</code></pre>
+
+<ol>
+<li>Update the report.html to highlight thew new finding</li>
+</ol><pre><code>-              &lt;h4 class="list-group-item-heading"&gt;User Policies &lt;spcan class="badge pull-right"&gt;{{count policies}}&lt;/span&gt;&lt;/h4&gt;
++              &lt;h4 class="list-group-item-heading"&gt;User Policies &lt;span class="badge pull-right" id="iam_users-user-policy-{{user_name}}"&gt;{{count policies}}&lt;/span&gt;&lt;/h4&gt;
+</code></pre>
 
 <h2>
 <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h2>
