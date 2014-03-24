@@ -72,50 +72,100 @@
 <h2>
 <a name="default-rulesets" class="anchor" href="#default-rulesets"><span class="octicon octicon-link"></span></a>Default rulesets</h2>
 
-<p>AWS Scout2 comes with the following, default, rulset:</p>
+<p>AWS Scout2 comes with the following default rulesets:</p>
 
 <h3>
 <a name="ec2-default-ruleset" class="anchor" href="#ec2-default-ruleset"><span class="octicon octicon-link"></span></a>EC2 default ruleset</h3>
 
-<table>
+<table width="100%">
 <thead><tr>
-<th>Description</th>
+<th width="90%">Description</th>
 <th>Level</th>
 </tr></thead>
-<tbody>
 <tr>
-<td>Sensitive port open to the Internet (e.g. SSH, RDP, SQL, ...)</td>
+<td width="90%">Sensitive port open to the Internet (e.g. SSH, RDP, SQL, ...)</td>
 <td>danger</td>
 </tr>
 <tr>
-<td>Plaintext-protocol port open (e.g. FTP, Telnet, ...)</td>
+<td width="90%">Plaintext-protocol port open (e.g. FTP, Telnet, ...)</td>
 <td>danger</td>
 </tr>
 <tr>
-<td>Non-HTTP ports open to the Internet (not 80/443)</td>
+<td width="90%">Non-HTTP ports open to the Internet (not 80/443)</td>
 <td>warning</td>
 </tr>
 <tr>
-<td>Lack of network ACLs (Inbound)</td>
+<td width="90%">Lack of network ACLs (Inbound)</td>
 <td>warning</td>
 </tr>
 <tr>
-<td>Lack of network ACLs (Outbound)</td>
+<td width="90%">Lack of network ACLs (Outbound)</td>
 <td>warning</td>
 </tr>
-</tbody>
 </table><h3>
 <a name="iam-default-ruleset" class="anchor" href="#iam-default-ruleset"><span class="octicon octicon-link"></span></a>IAM default ruleset</h3>
 
-<h3>
+<table width="100%">
+<thead><tr>
+<th width="90%">Description</th>
+<th>Level</th>
+</tr></thead>
+<tr>
+<td width="90%">Lack of key rotation</td>
+<td>danger</td>
+</tr>
+<tr>
+<td width="90%">Lack of (inactive) key rotation</td>
+<td>danger</td>
+</tr>
+<tr>
+<td width="90%">Lack of Multi-Factor Authentication</td>
+<td>danger</td>
+</tr>
+<tr>
+<td width="90%">Password and Access Key authorized for a given account</td>
+<td>warning</td>
+</tr>
+<tr>
+<td width="90%">Existence of user policy</td>
+<td>warning</td>
+</tr>
+</table><h3>
 <a name="s3-default-ruleset" class="anchor" href="#s3-default-ruleset"><span class="octicon octicon-link"></span></a>S3 default ruleset</h3>
 
-<h2>
+<table width="100%">
+<thead><tr>
+<th width="90%">Description</th>
+<th>Level</th>
+</tr></thead>
+<tr>
+<td width="90%">Bucket world-writable</td>
+<td>danger</td>
+</tr>
+<tr>
+<td width="90%">Bucket's permissions world-writable</td>
+<td>danger</td>
+</tr>
+<tr>
+<td width="90%">Bucket world-readable</td>
+<td>danger</td>
+</tr>
+</table><h2>
 <a name="how-to-create-a-new-rule" class="anchor" href="#how-to-create-a-new-rule"><span class="octicon octicon-link"></span></a>How to create a new rule</h2>
 
+<h3>
+<a name="directions" class="anchor" href="#directions"><span class="octicon octicon-link"></span></a>Directions</h3>
+
 <ol>
-<li>Open the default ruleset (under rules/findings-[XXX].default.rules) you wish to enhance, and create a new entry as follow:</li>
-</ol><pre><code>+    },
+<li>Open the default ruleset you wish to enhance, and create a new entry.</li>
+<li>Define and implement the new callback in the corresponding utils file.</li>
+<li>Update the report.html to highlight thew new finding.</li>
+</ol><h3>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h3>
+
+<p><code>git diff rules/findings-iam.default.json</code>:</p>
+
+<pre><code>+    },
 +    "user-policy": {
 +        "description": "User policies",
 +        "entity": "users",
@@ -125,17 +175,17 @@
 +    }
 </code></pre>
 
-<ol>
-<li>Define and implement the new callback in the corresponding utils file:</li>
-</ol><pre><code>+
+<p><code>git diff AWSScout2/finding_iam.py</code>:</p>
+
+<pre><code>+
 +    def hasUserPolicy(self, key, obj):
 +        if len(obj['policies']) &gt; 0:
 +            self.addItem(obj['user_name'], obj['user_name'])
 </code></pre>
 
-<ol>
-<li>Update the report.html to highlight thew new finding</li>
-</ol><pre><code>-              &lt;h4 class="list-group-item-heading"&gt;User Policies &lt;spcan class="badge pull-right"&gt;{{count policies}}&lt;/span&gt;&lt;/h4&gt;
+<p><code>git diff report.html</code>:</p>
+
+<pre><code>-              &lt;h4 class="list-group-item-heading"&gt;User Policies &lt;spcan class="badge pull-right"&gt;{{count policies}}&lt;/span&gt;&lt;/h4&gt;
 +              &lt;h4 class="list-group-item-heading"&gt;User Policies &lt;span class="badge pull-right" id="iam_users-user-policy-{{user_name}}"&gt;{{count policies}}&lt;/span&gt;&lt;/h4&gt;
 </code></pre>
 
