@@ -49,25 +49,25 @@
 
 <p>Security Groups are the first layer of defense for EC2 instances (<a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Security.html#VPC_Security_Comparison">AWS documentation</a>), and control both inbound and outbound traffic at the instance level. AWS Scout2 has a default ruleset that reports known sensitive ports that are open to the Internet (in the following screenshot, 22/SSH). Additionally, the default ruleset also reports open ports whose number are associated with plaintext protocol (in the following screenshot, 23/Telnet).</p>
 
-<p><img src="http://isecpartners.github.io/Scout2/images/aws-screenshot-ec2-sg.png" width="100%" alt="EC2 Security Groups view"></p>
+<p><img src="//isecpartners.github.io/Scout2/images/aws-screenshot-ec2-sg.png" width="100%" alt="EC2 Security Groups view"></p>
 
 <p>Network ACLs are the second layer of defense, and control traffic in and out of a subnet. AWS Scout2 has an EC2/Network ACLs view that reports all existing rules:</p>
 
-<p><img src="http://isecpartners.github.io/Scout2/images/aws-screenshot-ec2-acls.png" width="100%" alt="EC2 Network ACLs view"></p>
+<p><img src="//isecpartners.github.io/Scout2/images/aws-screenshot-ec2-acls.png" width="100%" alt="EC2 Network ACLs view"></p>
 
 <h3>
 <a name="iam-view" class="anchor" href="#iam-view"><span class="octicon octicon-link"></span></a>IAM view</h3>
 
 <p>The IAM tab in the HTML report allows to review IAM users, groups and roles. In the following screenshot, AWS Scout2 reports two dangerous findings (lack of Multi-Factor Authentication, lack of access-key rotation), and warns about a third one (support for two types of authentication).</p>
 
-<p><img src="http://isecpartners.github.io/Scout2/images/aws-screenshot-iam-user.png" width="100%" alt="IAM Users view"></p>
+<p><img src="//isecpartners.github.io/Scout2/images/aws-screenshot-iam-user.png" width="100%" alt="IAM Users view"></p>
 
 <h3>
 <a name="s3-view" class="anchor" href="#s3-view"><span class="octicon octicon-link"></span></a>S3 view</h3>
 
 <p>AWS Scout2 fetches the S3 configuration as well. The default ruleset highlights buckets that are world-writable, and whose permissions are world-writable. Additionally, a warning is displayed for world-readable buckets.</p>
 
-<p><img src="http://isecpartners.github.io/Scout2/images/aws-screenshot-s3-worldwrite.png" width="100%" alt="S3 Buckets view"></p>
+<p><img src="//isecpartners.github.io/Scout2/images/aws-screenshot-s3-worldwrite.png" width="100%" alt="S3 Buckets view"></p>
 
 <h2>
 <a name="default-rulesets" class="anchor" href="#default-rulesets"><span class="octicon octicon-link"></span></a>Default rulesets</h2>
