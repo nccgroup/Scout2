@@ -2,9 +2,9 @@
 <html>
 
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Scout2 : Security auditing tool for AWS environments" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Scout2 : Security auditing tool for AWS environments">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -32,20 +32,22 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h2>
-<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
+<a id="description" class="anchor" href="#description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Description</h2>
 
-<p>Using the AWS API, the Scout2 Python scripts fetches EC2, IAM, and S3, configuration data. The gathered configuration is analyzed and stored as JSON objects in several JavaScript files. These files are imported in the Scout2 HTML report, which allows for a quick and efficient review of the AWS configuration.</p>
+<p>Scout2 is an open source tool that helps assessing the security posture of AWS environments. Using the AWS API, the Scout2 Python scripts fetch CloudTrail, EC2, IAM, RDS, and S3, configuration data. The gathered configuration is analyzed and stored as JSON objects in several JavaScript files. These files are imported in the Scout2 HTML report, which allows for a quick and efficient review of the AWS configuration.</p>
 
 <h2>
-<a name="html-report" class="anchor" href="#html-report"><span class="octicon octicon-link"></span></a>HTML Report</h2>
+<a id="html-report" class="anchor" href="#html-report" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTML Report</h2>
 
 <p>The Scout2 Python script populates JavaScript variables displayed in the HTML report. In addition to displaying the AWS configuration, the AWS Scout2 HTML report highlights high-risk areas automatically. Potential findings are highlight with two different colors</p>
 
 <ul>
 <li>red :: danger</li>
 <li>orange :: warning</li>
-</ul><h3>
-<a name="ec2-view" class="anchor" href="#ec2-view"><span class="octicon octicon-link"></span></a>EC2 view</h3>
+</ul>
+
+<h3>
+<a id="ec2-view" class="anchor" href="#ec2-view" aria-hidden="true"><span class="octicon octicon-link"></span></a>EC2 view</h3>
 
 <p>Security Groups are the first layer of defense for EC2 instances (<a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Security.html#VPC_Security_Comparison">AWS documentation</a>), and control both inbound and outbound traffic at the instance level. AWS Scout2 has a default ruleset that reports known sensitive ports that are open to the Internet (in the following screenshot, 22/SSH). Additionally, the default ruleset also reports open ports whose number are associated with plaintext protocol (in the following screenshot, 23/Telnet).</p>
 
@@ -56,7 +58,7 @@
 <p><img src="//isecpartners.github.io/Scout2/images/aws-screenshot-ec2-acls.png" width="100%" alt="EC2 Network ACLs view"></p>
 
 <h3>
-<a name="iam-view" class="anchor" href="#iam-view"><span class="octicon octicon-link"></span></a>IAM view</h3>
+<a id="iam-view" class="anchor" href="#iam-view" aria-hidden="true"><span class="octicon octicon-link"></span></a>IAM view</h3>
 
 <p>The IAM tab in the HTML report allows to review IAM users, groups and roles. In the following screenshot, AWS Scout2 reports two dangerous findings (lack of Multi-Factor Authentication, lack of access-key rotation), and warns about a third one (support for two types of authentication).</p>
 
@@ -71,19 +73,19 @@
 <p><img src="//isecpartners.github.io/Scout2/images/aws-screenshot-iam-permissions.png" width="100%" alt="IAM Permissions view"></p>
 
 <h2>
-<a name="s3-view" class="anchor" href="#s3-view"><span class="octicon octicon-link"></span></a>S3 view</h2>
+<a id="s3-view" class="anchor" href="#s3-view" aria-hidden="true"><span class="octicon octicon-link"></span></a>S3 view</h2>
 
 <p>AWS Scout2 fetches the S3 configuration as well. The default ruleset highlights buckets that are world-writable, and whose permissions are world-writable. Additionally, a warning is displayed for world-readable buckets.</p>
 
 <p><img src="//isecpartners.github.io/Scout2/images/aws-screenshot-s3-worldwrite.png" width="100%" alt="S3 Buckets view"></p>
 
 <h2>
-<a name="default-rulesets" class="anchor" href="#default-rulesets"><span class="octicon octicon-link"></span></a>Default rulesets</h2>
+<a id="default-rulesets" class="anchor" href="#default-rulesets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default rulesets</h2>
 
 <p>AWS Scout2 comes with the following default rulesets:</p>
 
 <h3>
-<a name="ec2-default-ruleset" class="anchor" href="#ec2-default-ruleset"><span class="octicon octicon-link"></span></a>EC2 default ruleset</h3>
+<a id="ec2-default-ruleset" class="anchor" href="#ec2-default-ruleset" aria-hidden="true"><span class="octicon octicon-link"></span></a>EC2 default ruleset</h3>
 
 <table width="100%">
 <thead><tr>
@@ -110,8 +112,10 @@
 <td width="90%">Lack of network ACLs (Outbound)</td>
 <td>warning</td>
 </tr>
-</table><h3>
-<a name="iam-default-ruleset" class="anchor" href="#iam-default-ruleset"><span class="octicon octicon-link"></span></a>IAM default ruleset</h3>
+</table>
+
+<h3>
+<a id="iam-default-ruleset" class="anchor" href="#iam-default-ruleset" aria-hidden="true"><span class="octicon octicon-link"></span></a>IAM default ruleset</h3>
 
 <table width="100%">
 <thead><tr>
@@ -138,8 +142,10 @@
 <td width="90%">Existence of user policy</td>
 <td>warning</td>
 </tr>
-</table><h3>
-<a name="s3-default-ruleset" class="anchor" href="#s3-default-ruleset"><span class="octicon octicon-link"></span></a>S3 default ruleset</h3>
+</table>
+
+<h3>
+<a id="s3-default-ruleset" class="anchor" href="#s3-default-ruleset" aria-hidden="true"><span class="octicon octicon-link"></span></a>S3 default ruleset</h3>
 
 <table width="100%">
 <thead><tr>
@@ -158,18 +164,22 @@
 <td width="90%">Bucket world-readable</td>
 <td>danger</td>
 </tr>
-</table><h2>
-<a name="how-to-create-a-new-rule" class="anchor" href="#how-to-create-a-new-rule"><span class="octicon octicon-link"></span></a>How to create a new rule</h2>
+</table>
+
+<h2>
+<a id="how-to-create-a-new-rule" class="anchor" href="#how-to-create-a-new-rule" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to create a new rule</h2>
 
 <h3>
-<a name="directions" class="anchor" href="#directions"><span class="octicon octicon-link"></span></a>Directions</h3>
+<a id="directions" class="anchor" href="#directions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Directions</h3>
 
 <ol>
 <li>Open the default ruleset you wish to enhance, and create a new entry.</li>
 <li>Define and implement the new callback in the corresponding utils file.</li>
 <li>Update the report.html to highlight thew new finding.</li>
-</ol><h3>
-<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h3>
+</ol>
+
+<h3>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h3>
 
 <p>The following code snippets illustrate the addition of a new rule. In this example, the new rule warns against the use of user policies (this rule is now part of the default ruleset).</p>
 
@@ -200,7 +210,7 @@
 </code></pre>
 
 <h2>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h2>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h2>
 
 <ul>
 <li>Loic Simon - <a href="https://github.com/l01cd3v" class="user-mention">@l01cd3v</a>
@@ -217,7 +227,17 @@
       </footer>
     </div>
 
-    
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-56674561-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
 
   </body>
 </html>
