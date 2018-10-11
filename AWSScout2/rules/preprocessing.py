@@ -98,6 +98,8 @@ def process_metadata_callbacks(aws_config):
                                         source = {}
                                     target_object.update(source)
 
+    return None
+
 def add_cidr_display_name(aws_config, ip_ranges, ip_ranges_name_key):
     if len(ip_ranges):
         callback_args = {'ip_ranges': ip_ranges, 'ip_ranges_name_key': ip_ranges_name_key}
